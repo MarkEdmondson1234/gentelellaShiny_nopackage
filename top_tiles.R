@@ -20,6 +20,7 @@ tileCountRow <- function(...){
 #' @param width Width of tile in bootstrap
 #' @param icon_in Icon to show
 #' @param from_text Change text
+#' @param highlight color to highlight value
 #' 
 #' @return a tileCountRow for use within \link{tileCountRow}
 tileCountElement <- function(value = 2500,
@@ -28,7 +29,8 @@ tileCountElement <- function(value = 2500,
                              tile_title = " Total Users",
                              width = 2,
                              icon_in = icon("user"),
-                             from_text = " From last Week"){
+                             from_text = " From last Week",
+                             highlight = ""){
   if(going_well){
     bottom_icon <- tags$i(class = "green", icon("sort-asc"), change_value)
   } else {
@@ -38,7 +40,7 @@ tileCountElement <- function(value = 2500,
   withTags({
     div(class = paste0("col-md-",width," col-sm-4 col-xs-6 tile_stats_count"),
         span(class = "count_top", icon_in, tile_title),
-        div(class = "count", value),
+        div(class = paste("count", highlight), value),
         span(class = "count_bottom", bottom_icon, from_text)
         )
     
@@ -77,28 +79,31 @@ tileCountUI <- function(id){
 #' @param width Width of tile in bootstrap
 #' @param icon_in Icon to show
 #' @param from_text Change text
+#' @param highlight color to highlight value
 #' 
 #' @return NULL
 updateTileCount <- function(input, output, session,
-                            value = 2500,
-                            change_value = "4%",
-                            going_well = TRUE,
+                            value,
+                            change_value,
+                            going_well,
                             tile_title = " Total Users",
                             width = 2,
                             icon_in = icon("user"),
-                            from_text = " From last Week"){
+                            from_text = " From last Week",
+                            highlight = ""){
 
     ns <- session$ns
     
     output$tile_count <- renderUI({
       
-      tileCountElement(value = value,
-                       change_value = change_value,
-                       going_well = going_well,
-                       tile_title = title,
+      tileCountElement(value = value(),
+                       change_value = change_value(),
+                       going_well = going_well(),
+                       tile_title = tile_title,
                        width = width,
                        icon_in = icon_in,
-                       from_text = from_text)
+                       from_text = from_text,
+                       highlight = highlight)
       
     })
 

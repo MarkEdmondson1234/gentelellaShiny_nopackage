@@ -8,5 +8,6 @@ htmlTemplate("index.html",
              authDropdown = googleAnalyticsR::authDropdownUI("auth_dropdown"),
              sessionTable = dataTableOutput("delta"),
              # topTiles = tileCountRow(tileCountElement(), tileCountElement(), tileCountElement()),
-             topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"))             
+             topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+                                     tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6"))             
 )
