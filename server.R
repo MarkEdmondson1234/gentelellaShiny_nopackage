@@ -3,6 +3,7 @@ library(googleAuthR)
 library(googleAnalyticsR)
 # options(shiny.port = 1221)
 source("top_tiles.R")
+source("box_layouts.R")
 
 function(input, output, session){
   
