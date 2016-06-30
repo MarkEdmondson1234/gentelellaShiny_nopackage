@@ -2,6 +2,7 @@ library(shiny)
 library(googleAuthR)
 library(googleAnalyticsR)
 # options(shiny.port = 1221)
+source("top_tiles.R")
 
 function(input, output, session){
   
@@ -46,5 +47,33 @@ function(input, output, session){
     session_data()
     
   })
+  
+  ## top tiles
+  shiny::callModule(updateTileCount, "e1",
+                    value = session_data()[2,"sessions.d1"],
+                    change_value = session_data()[2,"sessions.d1"] - session_data()[2,"sessions.d2"],
+                    going_well = if(session_data()[2,"sessions.d1"] - session_data()[2,"sessions.d2"] > 0) TRUE else FALSE,
+                    tile_title = " Organic Sessions",
+                    width = 2,
+                    icon_in = icon("user"),
+                    from_text = " From last Week")
+  
+  shiny::callModule(updateTileCount, "e2",
+                    value = session_data()[1,"sessions.d1"],
+                    change_value = session_data()[1,"sessions.d1"] - session_data()[1,"sessions.d2"],
+                    going_well = if(session_data()[1,"sessions.d1"] - session_data()[1,"sessions.d2"] > 0) TRUE else FALSE,
+                    tile_title = " Direct Sessions",
+                    width = 2,
+                    icon_in = icon("user"),
+                    from_text = " From last Week")
+  
+  shiny::callModule(updateTileCount, "e3",
+                    value = session_data()[3,"sessions.d1"],
+                    change_value = session_data()[3,"sessions.d1"] - session_data()[3,"sessions.d2"],
+                    going_well = if(session_data()[3,"sessions.d1"] - session_data()[3,"sessions.d2"] > 0) TRUE else FALSE,
+                    tile_title = " Referral Sessions",
+                    width = 2,
+                    icon_in = icon("user"),
+                    from_text = " From last Week")
   
 }
