@@ -5,8 +5,9 @@ library(googleID)
 options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/userinfo.email",
                                         "https://www.googleapis.com/auth/userinfo.profile",
                                         "https://www.googleapis.com/auth/analytics.readonly"))
-
+options(googleAuthR.securitycode = "gentelellafkjfs24j234123")
 # options(shiny.port = 1221)
+
 source("top_tiles.R")
 source("box_layouts.R")
 source("profile.R")
@@ -15,22 +16,20 @@ source("progress_bars.R")
 function(input, output, session){
   
   access_token <- callModule(googleAuthR::googleAuth, "auth", 
-                             login_text = "Login")
+                             login_text = "Log in",
+                             logout_text = "Log off")
   
   ga_tables <- reactive({
-    validate(
-      need(access_token(), "Authenticate")
-    )
+
+    req(access_token())
     with_shiny(google_analytics_account_list,
                shiny_access_token = access_token())
     
   })
   
   user_data <- reactive({
-    validate(
-      need(access_token(), "Authenticate")
-    )
-    
+
+    req(access_token())
     ## user_data$emails$value
     ## user_data$displayName
     ## user_data$image$url
@@ -41,13 +40,11 @@ function(input, output, session){
   
   output$profile <- renderUI({
     
-    ud <- user_data()
+    req(user_data())
     
-    if(!is.null(ud)){
-      profile_box(ud$displayName, ud$image$url)
-    } else {
-      profile_box("John Doe", "https://lh5.googleusercontent.com/-OVYhmgQg3lg/AAAAAAAAAAI/AAAAAAAAAP0/1qVcsNpSXlQ/photo.jpg?sz=64")
-    }
+    ud <- user_data()
+
+    profile_box(ud$displayName, ud$image$url)
 
     
   })
@@ -67,9 +64,8 @@ function(input, output, session){
   selected_id <- callModule(authDropdown, "auth_dropdown", ga_tables)
   
   session_data <- reactive({
-    validate(
-      need(access_token(), "Authenticate")
-    )
+
+    req(access_token())
     
     s1 <- Sys.Date() - 60
     e1 <- Sys.Date() - 30

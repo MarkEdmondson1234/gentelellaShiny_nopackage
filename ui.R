@@ -7,9 +7,8 @@ source("progress_bars.R")
 
 options(shiny.port = 1221)
 htmlTemplate("index.html",
-             googleLogin = googleAuthR::googleAuthUI("auth"),
-             authDropdown = dashboard_box(googleAnalyticsR::authDropdownUI("auth_dropdown"), 
-                                          width = 12, box_title = "Account Picker"),
+             googleLogin = column(width = 12, googleAuthR::googleAuthUI("auth")),
+             authDropdown = column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
              sessionTable = graph_box(dataTableOutput("delta")),
              topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
                                      tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
