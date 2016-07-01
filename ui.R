@@ -1,5 +1,6 @@
 library(shiny)
 library(googleAnalyticsR)
+library(dygraphs)
 source("top_tiles.R")
 source("box_layouts.R")
 source("profile.R")
@@ -12,7 +13,7 @@ htmlTemplate("index.html",
              sessionTable = graph_box(dataTableOutput("delta")),
              topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
                                      tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
-             graph_box = graph_box(),
+             graph_box1 = graph_box(plotOutput("trend_plot"), datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
              another_box = dashboard_box(uiOutput("progress_bar2")),
              another_box2 = dashboard_box(p("Interesting stuff goes here")),
              another_box3 = dashboard_box(p("More interesting stuff")),

@@ -52,7 +52,9 @@ dashboard_box <- function(...,
                           width=4,
                           height=320,
                           box_title = "Box title",
-                          menuItems = list(a(class = "collapse-link", icon("chevron-up")), a(href="#", "One"), a(href="#", "Two"))){
+                          menuItems = list(a(class = "collapse-link", icon("chevron-up")), 
+                                           a(href="#", "One"), 
+                                           a(href="#", "Two"))){
   
   withTags({
     div(class = paste0(paste(c("col-md","col-sm"), width, sep = "-", collapse = " "), " col-xs-12"),

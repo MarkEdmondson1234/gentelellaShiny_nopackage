@@ -2,6 +2,9 @@ library(shiny)
 library(googleAuthR)
 library(googleAnalyticsR)
 library(googleID)
+library(dygraphs)
+library(zoo)
+library(ggplot2)
 options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/userinfo.email",
                                         "https://www.googleapis.com/auth/userinfo.profile",
                                         "https://www.googleapis.com/auth/analytics.readonly"))
@@ -78,7 +81,7 @@ function(input, output, session){
       date_range = c(s1, e2, s2, e2),
       metrics = c("sessions","users"),
       dimensions = "medium",
-      order = order_type("sessions", "ASCENDING", "DELTA"),
+      order = order_type("sessions", "DESCENDING", "DELTA"),
       shiny_access_token = access_token()
     )
     
@@ -87,6 +90,41 @@ function(input, output, session){
   output$delta <- renderDataTable({
     
     session_data()
+    
+  })
+  
+  ## trend plot
+  
+  trend_data <- reactive({
+    
+    req(access_token())
+    # req(datepicker_id)
+    
+    dates <- input$datepicker_id
+    
+    with_shiny(
+      google_analytics_4,
+      viewId = selected_id(),
+      date_range = dates,
+      metrics = c("sessions"),
+      dimensions = "date",
+      shiny_access_token = access_token()
+    )
+    
+  })
+  
+  output$trend_plot <- renderPlot({
+    
+    req(trend_data())
+    trend_data <- trend_data()
+    
+
+    
+    ## halts app??
+    # zz <- zoo(trend_data$sessions, order.by = trend_data$date)
+    # dygraph(zz, ylab = "sessions", main = "Sessions Trend")
+    
+    ggplot(trend_data, aes(x = date, y = sessions)) + geom_line() + theme_minimal()
     
   })
   
