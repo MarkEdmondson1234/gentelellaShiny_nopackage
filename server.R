@@ -10,6 +10,7 @@ options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/userinf
 source("top_tiles.R")
 source("box_layouts.R")
 source("profile.R")
+source("progress_bars.R")
 
 function(input, output, session){
   
@@ -92,6 +93,38 @@ function(input, output, session){
     session_data()
     
   })
+  
+  ## progress bars
+  
+  output$progress_bar <- renderUI({
+    validate(
+      need(session_data(), "Fetching data...")
+    )
+    
+    sd <- session_data()
+    
+    values <- sd$sessions.d1
+    names(values) <- sd$medium
+    progress_stack(values, 
+                   display_totals = values)
+    
+  })
+  
+  output$progress_bar2 <- renderUI({
+    validate(
+      need(session_data(), "Fetching data...")
+    )
+    
+    sd <- session_data()
+    
+    values <- sd$users.d1
+    names(values) <- sd$medium
+    progress_stack(values, 
+                   display_totals = values)
+    
+  })
+  
+  ### top tiles
   
   top_tile_data <- reactive({
     

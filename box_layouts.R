@@ -26,7 +26,7 @@ graph_box <- function(...,
                        )
                     ),
                 div(class = "col-md-6",
-                    div(id="reportrange", class = "pull-right", style="padding: 10px 5px 1px",
+                    div(id="reportrange", class = "", style="padding: 10px 5px 1px",
                         datepicker)  
                         )
                 ),
@@ -50,18 +50,18 @@ graph_box <- function(...,
 #' @return A box to put elements in
 dashboard_box <- function(..., 
                           width=4,
+                          height=320,
                           box_title = "Box title",
                           menuItems = list(a(class = "collapse-link", icon("chevron-up")), a(href="#", "One"), a(href="#", "Two"))){
   
   withTags({
     div(class = paste0(paste(c("col-md","col-sm"), width, sep = "-", collapse = " "), " col-xs-12"),
-      div(class = "x_panel tile fixed_height_320",
+      div(class = "x_panel tile", style = paste0("height: ", height, "px;"),
           div(class = "x_title",
               h2(box_title),
               ul(class = "nav navbar-right panel_toolbox",
                  ## add more items to li menu if passed.
-                 # tagList(lapply(menuItems, li))
-                 li(a(class = "collapse-link", icon("chevron-up")))
+                 tagList(lapply(menuItems, li))
                  ),
               div(class="clearfix")
               ),

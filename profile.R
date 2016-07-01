@@ -51,7 +51,7 @@ profile_nav <- function(profile_name,
                                             tags$a(href="javascript:;", "Help")
                                           ),
                                           tags$li(
-                                            tags$a(href="#", "Log out", tags$i(class="fa fa-sign-out pull-right")
+                                            tags$a(href="#", tags$i(class="fa fa-sign-out pull-right"), "Log out"
                                             )))
                         ){
   
