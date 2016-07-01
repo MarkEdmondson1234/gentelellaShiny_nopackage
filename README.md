@@ -14,6 +14,8 @@ This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.ht
 
 ## Screenshot after logging in
 
+The demo uses `googleAnalyticsR` to download data, so won't look like much if you login with an account with no GA :)  Replace with your own data source and everything else will work though. 
+
 ![](gentellelaShinydemo.png)
 
 ## To use
