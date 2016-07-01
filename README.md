@@ -6,9 +6,11 @@ This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.ht
 
 * A unique looking Shiny dashboard
 * Login authentication page via `googleID`
-* Profile name and picture
-* Progress bar visualisation
+* Profile name and picture pulled from G+
+* Dynamic headline tiles
+* Dynamic progress bar visualisation
 * Custom box for plots including date picker in header
+* Custom collapsible box for dashboard elements
 
 ## Screenshot after logging in
 
