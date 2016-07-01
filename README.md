@@ -12,7 +12,7 @@ This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.ht
 
 ## Screenshot after logging in
 
-![](gentelellaShinydemo.png)
+![](gentellelaShinydemo.png)
 
 ## To use
 
