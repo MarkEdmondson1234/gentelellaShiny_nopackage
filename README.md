@@ -5,8 +5,8 @@ This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.ht
 ## Features
 
 * A unique looking Shiny dashboard
-* Login authentication page via `googleID`
-* Profile name and picture pulled from G+
+* Login authentication page (requires [`googleAuthR`](https://github.com/MarkEdmondson1234/googleAuthR))
+* Profile name and picture pulled from G+ (requires [`googleID`](https://github.com/MarkEdmondson1234/googleID))
 * Dynamic headline tiles
 * Dynamic progress bar visualisation
 * Custom box for plots including date picker in header
