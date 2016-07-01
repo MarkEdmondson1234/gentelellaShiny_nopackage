@@ -1,9 +1,15 @@
 library(shiny)
 library(googleAuthR)
 library(googleAnalyticsR)
+library(googleID)
+options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/userinfo.email",
+                                        "https://www.googleapis.com/auth/userinfo.profile",
+                                        "https://www.googleapis.com/auth/analytics.readonly"))
+
 # options(shiny.port = 1221)
 source("top_tiles.R")
 source("box_layouts.R")
+source("profile.R")
 
 function(input, output, session){
   
@@ -16,6 +22,44 @@ function(input, output, session){
     )
     with_shiny(google_analytics_account_list,
                shiny_access_token = access_token())
+    
+  })
+  
+  user_data <- reactive({
+    validate(
+      need(access_token(), "Authenticate")
+    )
+    
+    ## user_data$emails$value
+    ## user_data$displayName
+    ## user_data$image$url
+    with_shiny(get_user_info,
+               shiny_access_token = access_token())
+    
+  })
+  
+  output$profile <- renderUI({
+    
+    ud <- user_data()
+    
+    if(!is.null(ud)){
+      profile_box(ud$displayName, ud$image$url)
+    } else {
+      profile_box("John Doe", "https://lh5.googleusercontent.com/-OVYhmgQg3lg/AAAAAAAAAAI/AAAAAAAAAP0/1qVcsNpSXlQ/photo.jpg?sz=64")
+    }
+
+    
+  })
+  
+  output$profile_nav <- renderUI({
+    
+    ud <- user_data()
+    
+    if(!is.null(ud)){
+      profile_nav(ud$displayName, ud$image$url)
+    } else {
+      profile_nav("John Doe", "https://lh5.googleusercontent.com/-OVYhmgQg3lg/AAAAAAAAAAI/AAAAAAAAAP0/1qVcsNpSXlQ/photo.jpg?sz=64")
+    }
     
   })
   
