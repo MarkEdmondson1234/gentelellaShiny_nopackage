@@ -55,7 +55,7 @@ footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Temp
   
 }
 
-sideBarBoilerPlate <- function(site_title = '<a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shiny HTML Template</span></a>'){
+sideBarBoilerPlate <- function(site_title = '<a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Shiny HTML Template</span></a>'){
   
   withTags({
     div(class="col-md-3 left_col",
