@@ -24,6 +24,16 @@ headerBoilerPlate <- function(title_tag = "Shiny HTML"){
   
 }
 
+header2 <- function(title_tag){
+  
+  tags$head(
+    headContent(),  # this is not allowed
+    headerBoilerPlate(),
+    bootstrapLib()
+  )
+  
+}
+
 footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>'){
   
   HTML(sprintf('
@@ -44,3 +54,138 @@ footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Temp
   
   
 }
+
+sideBarBoilerPlate <- function(site_title = '<a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shiny HTML Template</span></a>'){
+  
+  withTags({
+    div(class="col-md-3 left_col",
+        div(class="left_col scroll-view",
+          div(class="navbar nav_title", style="border: 0;",
+             HTML(site_title)
+          ),
+          div(class = "clearfix"),
+          uiOutput("profile"),
+          br(),
+          div(id="sidebar-menu", class="main_menu_side hidden-print main_menu",
+            div(class = "menu_section",
+                h3("General"),
+                ul(class = "nav side-menu",
+                   li(
+                     a(
+                       icon("home"),
+                       " Home ",
+                       span(class="fa fa-chevron-down")
+                     ),
+                     ul(class="nav child_menu",
+                        li(a(href="index.html", "Dashboard")),
+                        li(a(href="index2.html", "Dashboard2")),                        
+                        li(a(href="index3.html", "Dashboard3"))                        
+                     ),
+                     li(
+                       a(
+                         icon("envelope"),
+                         " Contact ",
+                         span(class="fa fa-chevron-down")
+                       ),
+                       ul(class="nav child_menu",
+                          li(a(href="index.html", "Dashboard")),
+                          li(a(href="index2.html", "Dashboard2")),                        
+                          li(a(href="index3.html", "Dashboard3"))  
+                     )
+                   ),
+                   li(
+                     column(width = 12, googleAuthR::googleAuthUI("auth")
+                   )
+                   
+                   )
+                )
+          )
+          
+          
+        ))
+        )
+    )
+  })
+}
+  
+navbarBoilerPlate <- function(){
+    
+    withTags({
+      div(class="top_nav",
+          div(class="nav_menu",
+              nav(
+                div(class="nav toggle",
+                    a(id="menu_toggle", icon("bars"))
+                ),
+                uiOutput("profile_nav")
+                
+              )
+          ) 
+      )
+      
+    })
+    
+}
+  # <div class="col-md-3 left_col">
+  #   <div class="left_col scroll-view">
+  #     <div class="navbar nav_title" style="border: 0;">
+  #       <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shiny HTML Template</span></a>
+  #         </div>
+  #         <div class="clearfix"></div>
+  #           {{ profile }}
+  #         <!-- /menu profile quick info -->
+  #           <br />
+  #           <!-- sidebar menu -->
+  #           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+  #             <div class="menu_section">
+  #               <h3>General</h3>
+  #               <ul class="nav side-menu">
+  #                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+  #                   <ul class="nav child_menu">
+  #                     <li><a href="index.html">Dashboard</a></li>
+  #                       <li><a href="index2.html">Dashboard2</a></li>
+  #                         <li><a href="index3.html">Dashboard3</a></li>
+  #                           </ul>
+  #                           </li>
+  #                           <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+  #                             <ul class="nav child_menu">
+  #                               <li><a href="tables.html">Tables</a></li>
+  #                                 <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+  #                                   </ul>
+  #                                   </li>
+  #                                   </ul>
+  #                                   </div>
+  #                                   <div class="menu_section">
+  #                                     <h3>Resources</h3>
+  #                                     <ul class="nav side-menu">
+  #                                       <li><a><i class="fa fa-envelope"></i> Contact <span class="fa fa-chevron-down"></span></a>
+  #                                         <ul class="nav child_menu">
+  #                                           <li><a href="http://twitter.com/HoloMarkeD"><i class="fa fa-twitter"></i>@HoloMarkeD</a></li>
+  #                                             <li><a href="http://code.markedmondson.me"><i class="fa fa-rss"></i> Blog</a></li>
+  #                                               <li><a href="https://dk.linkedin.com/in/markpeteredmondson"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+  #                                                 <li><a href="https://github.com/MarkEdmondson1234/gentelellaShiny"><i class="fa fa-github"></i>Github</a></li>
+  #                                                   </ul>
+  #                                                   </li>
+  #                                                   <li>{{ googleLogin }}</li>
+  #                                                   </ul>
+  #                                                   </div>
+  #                                                   
+  #                                                   </div>
+  #                                                   <!-- /sidebar menu -->
+  #                                                   </div>
+  #                                                   </div>
+  
+  # <!-- top navigation -->
+  #   <div class="top_nav">
+  #     <div class="nav_menu">
+  #       <nav>
+  #       <div class="nav toggle">
+  #         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+  #           </div>
+  #           
+  #           {{ profile_nav }}
+  #         
+  #         </nav>
+  #           </div>
+  #           </div>
+  #           <!-- /top navigation -->
