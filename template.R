@@ -1,19 +1,15 @@
 library(shiny)
 
-headerboilerPlate <- function(title_tag){
+headerBoilerPlate <- function(title_tag = "Shiny HTML"){
   
-  HTML('    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  HTML(sprintf('    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
        <meta charset="utf-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1">
        
-       <title>Gentellela Alela! | </title>
+       <title>%s</title>
        
-       <!-- Bootstrap -->
-       <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-       <!-- Font Awesome -->
-       <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
        <!-- NProgress -->
        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
        <!-- iCheck -->
@@ -24,6 +20,27 @@ headerboilerPlate <- function(title_tag){
        <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
        
        <!-- Custom Theme Style -->
-       <link href="../build/css/custom.min.css" rel="stylesheet">')
+       <link href="../build/css/custom.min.css" rel="stylesheet">', title_tag))
+  
+}
+
+footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>'){
+  
+  HTML(sprintf('
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+          %s
+          </div>
+          <div class="clearfix"></div>
+       </footer>
+       <!-- /footer content -->
+       
+       <!-- bootstrap-progressbar -->
+       <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+       <!-- Custom Theme Scripts -->
+       <script src="../build/js/custom.min.js"></script>
+       ', message))
+  
   
 }
