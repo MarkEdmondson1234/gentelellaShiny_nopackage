@@ -115,19 +115,24 @@ function(input, output, session){
     
   })
   
-  output$trend_plot <- renderPlot({
+  # output$trend_plot <- renderPlot({
+  #   
+  #   req(trend_data())
+  #   trend_data <- trend_data()
+  #   
+  #   ggplot(trend_data, aes(x = date, y = sessions)) + geom_line() + theme_minimal()
+  #   
+  # })
+  
+  output$trend_plot <- renderDygraph({
     
     req(trend_data())
     trend_data <- trend_data()
     
-
-    
     ## halts app??
-    # zz <- zoo(trend_data$sessions, order.by = trend_data$date)
-    # dygraph(zz, ylab = "sessions", main = "Sessions Trend")
-    
-    ggplot(trend_data, aes(x = date, y = sessions)) + geom_line() + theme_minimal()
-    
+    zz <- zoo(trend_data$sessions, order.by = trend_data$date)
+    dygraph(zz, ylab = "sessions", main = "Sessions Trend")
+   
   })
   
   ## progress bars
