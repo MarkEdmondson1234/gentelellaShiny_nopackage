@@ -23,8 +23,10 @@ function(input, output, session){
                              logout_text = "Log off")
   
   ga_tables <- reactive({
-
+    
     req(access_token())
+    
+
     with_shiny(google_analytics_account_list,
                shiny_access_token = access_token())
     
@@ -55,7 +57,7 @@ function(input, output, session){
   output$profile_nav <- renderUI({
     
     ud <- user_data()
-    
+
     if(!is.null(ud)){
       profile_nav(ud$displayName, ud$image$url)
     } else {
