@@ -26,6 +26,7 @@ graph_box <- function(...,
                        )
                     ),
                 div(class = "col-md-6",
+                    ## ideally class would be pull-right but bug prevents seeing Sunday...
                     div(id="reportrange", class = "", style="padding: 10px 5px 1px",
                         datepicker)  
                         )
@@ -40,7 +41,7 @@ graph_box <- function(...,
 
 #' A box to put dashboard elements in
 #' 
-#' Its 320 pixels high
+#' Its 320 pixels high by default
 #' 
 #' @param ... elements to put in the box
 #' @param width Width

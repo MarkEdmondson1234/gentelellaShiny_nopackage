@@ -34,7 +34,14 @@ header2 <- function(title_tag){
   
 }
 
-footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>'){
+footerBoilerPlate <- function(message = NULL){
+  
+  if(is.null(message)){
+    message <- tagList(p('Gentelella Shiny - Bootstrap Admin Template by', 
+                         a(href="https://colorlib.com", 'Colorlib'), 
+                         '. Shiny template by ', 
+                         a(href="http://markedmondson.me", 'Mark Edmondson')))
+  }
   
   HTML(sprintf('
         <!-- footer content -->
@@ -49,82 +56,93 @@ footerBoilerPlate <- function(message = 'Gentelella Shiny - Bootstrap Admin Temp
        <!-- bootstrap-progressbar -->
        <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
        <!-- Custom Theme Scripts -->
-       <script src="../build/js/custom.min.js"></script>
+       <script src="../build/js/custom.min.js"></script> 
        ', message))
   
   
 }
 
-sideBarBoilerPlate <- function(site_title = '<a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Shiny HTML Template</span></a>'){
+sideBarBoilerPlate <- function(site_title = a(class="site_title", icon("paw"), span("Shiny HTML")),
+                               menuItems = list(
+                                 sideBarElement(" Home ",
+                                                icon = icon("home"),
+                                                list(a(href="index.html", "Dashboard"),
+                                                     a(href="index2.html", "Dashboard2"),
+                                                     a(href="index3.html", "Dashboard3"))                        
+                                                ),
+                                 sideBarElement(" Contact ",
+                                                icon = icon("envelope"),
+                                                list(a(href="http://twitter.com/HoloMarkeD", 
+                                                       HTML(paste(icon("twitter"), "@HoloMarkeD"))),
+                                                     a(href="http://code.markedmondson.me", 
+                                                       HTML(paste(icon("rss"), " Blog"))),
+                                                     a(href="https://github.com/MarkEdmondson1234/gentelellaShiny", 
+                                                       HTML(paste(icon("github"), " Github"))))                        
+                                 ),
+                                 sideBarElement(column(width = 12, googleAuthR::googleAuthUI("auth"),
+                                                       icon = NULL)
+                               ))){
   
   withTags({
     div(class="col-md-3 left_col",
         div(class="left_col scroll-view",
           div(class="navbar nav_title", style="border: 0;",
-             HTML(site_title)
+             site_title
           ),
           div(class = "clearfix"),
           uiOutput("profile"),
           br(),
           div(id="sidebar-menu", class="main_menu_side hidden-print main_menu",
             div(class = "menu_section",
-                h3("General"),
+                h3(""),
                 ul(class = "nav side-menu",
-                   li(
-                     a(
-                       icon("home"),
-                       " Home ",
-                       span(class="fa fa-chevron-down")
-                     ),
-                     ul(class="nav child_menu",
-                        li(a(href="index.html", "Dashboard")),
-                        li(a(href="index2.html", "Dashboard2")),                        
-                        li(a(href="index3.html", "Dashboard3"))                        
-                     ),
-                     li(
-                       a(
-                         icon("envelope"),
-                         " Contact ",
-                         span(class="fa fa-chevron-down")
-                       ),
-                       ul(class="nav child_menu",
-                          li(a(href="index.html", "Dashboard")),
-                          li(a(href="index2.html", "Dashboard2")),                        
-                          li(a(href="index3.html", "Dashboard3"))  
-                     )
-                   ),
-                   li(
-                     column(width = 12, googleAuthR::googleAuthUI("auth")
-                   )
-                   
+                   tagList(lapply(menuItems, li))
                    )
                 )
           )
           
           
         ))
-        )
-    )
   })
 }
+
+#' sideBarLinks
+#' 
+#' Things put in li()
+#' 
+#' Use HTML() wrapped around icon() if neccessary
+sideBarElement <- function(element,
+                           icon = NULL,
+                           nested_element=NULL                        
+                           ){
   
+  tagList(
+    tags$a(icon, element, if(!is.null(nested_element)) span(class="fa fa-chevron-down")),
+    tags$ul(class="nav child_menu",
+      tagList(lapply(nested_element, tags$li)
+    )
+  ))
+  
+}
+  
+#' Top Navbar
 navbarBoilerPlate <- function(){
     
-    withTags({
-      div(class="top_nav",
-          div(class="nav_menu",
-              nav(
-                div(class="nav toggle",
-                    a(id="menu_toggle", icon("bars"))
-                ),
-                uiOutput("profile_nav")
-                
-              )
-          ) 
-      )
-      
-    })
+  withTags({
+    div(class="top_nav",
+        div(class="nav_menu",
+            nav(
+              div(class="nav toggle",
+                  a(id="menu_toggle", icon("bars"))
+              ),
+              uiOutput("profile_nav")
+              
+            )
+        ) 
+    )
     
+  })
+  
 }
   # <div class="col-md-3 left_col">
   #   <div class="left_col scroll-view">

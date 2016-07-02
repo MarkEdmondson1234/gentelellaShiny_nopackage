@@ -56,13 +56,21 @@ function(input, output, session){
   
   output$profile_nav <- renderUI({
     
+    req(user_data())
+    
     ud <- user_data()
 
-    if(!is.null(ud)){
-      profile_nav(ud$displayName, ud$image$url)
-    } else {
-      profile_nav("John Doe", "https://lh5.googleusercontent.com/-OVYhmgQg3lg/AAAAAAAAAAI/AAAAAAAAAP0/1qVcsNpSXlQ/photo.jpg?sz=64")
-    }
+    profile_nav(ud$displayName, ud$image$url, list(tags$li(tags$a(href="javascript:;", " Profile")),
+                                                   tags$li(
+                                                     tags$a(href="javascript:;", " Settings")
+                                                   ),
+                                                   tags$li(
+                                                     tags$a(href="javascript:;", "Help")
+                                                   ),
+                                                   tags$li(
+                                                     tags$a(href="/", tags$i(class="fa fa-sign-out pull-right"), "Log out"
+                                                     ))))
+    
     
   })
   
@@ -80,7 +88,7 @@ function(input, output, session){
     with_shiny(
       google_analytics_4,
       viewId = selected_id(),
-      date_range = c(s1, e2, s2, e2),
+      date_range = c(s1, e1, s2, e2),
       metrics = c("sessions","users"),
       dimensions = "medium",
       order = order_type("sessions", "DESCENDING", "DELTA"),
@@ -100,7 +108,7 @@ function(input, output, session){
   trend_data <- reactive({
     
     req(access_token())
-    # req(datepicker_id)
+    req(input$datepicker_id)
     
     dates <- input$datepicker_id
     
@@ -158,10 +166,12 @@ function(input, output, session){
     
     sd <- session_data()
     
-    values <- sd$users.d1
+    ## puts them on an index of 100 = maximum
+    values <- round(sd$users.d1 * (100 / max(sd$users.d1)))
     names(values) <- sd$medium
     progress_stack(values, 
-                   display_totals = values)
+                   small = FALSE,
+                   text_pos = "top")
     
   })
   

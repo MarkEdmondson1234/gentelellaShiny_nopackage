@@ -2,6 +2,8 @@
 
 This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.html) version of the [gentelella bootstrap theme](https://github.com/puikinsh/gentelella).
 
+It will eventually become a package.
+
 ## Features
 
 * A unique looking Shiny dashboard
@@ -12,6 +14,32 @@ This is a R [Shiny HTML Template](http://shiny.rstudio.com/articles/templates.ht
 * Custom box for plots including date picker in header
 * Custom collapsible box for dashboard elements
 
+## Elements
+
+* googleanalytics dropdown
+
+From `googleAnalyticsR`, a UI to selet GA view:
+
+![](ga_dropdown.png)
+
+* Top tiles
+
+A tile to show headline metrics
+
+![](top_tiles.png)
+
+* Plot Box
+
+A box with datepicker for plots
+
+![](plot_box.png)
+
+* Collapsible box
+
+A box to display other dashboard content
+
+![](dash_box.png)
+
 ## Screenshot after logging in
 
 The demo uses `googleAnalyticsR` to download data, so won't look like much if you login with an account with no GA :)  Replace with your own data source and everything else will work though. 
@@ -20,28 +48,68 @@ The demo uses `googleAnalyticsR` to download data, so won't look like much if yo
 
 ## To use
 
-HTML templates uses `shiny::htmlTemplate` in the `ui.R` to add dynamic content to the `index.html` file
+A special function `gentelellaPage()` has been created that you pass normal ui.R elements to, that will then render each parameter in order to each row of content on the page.
 
-An example ui.R:
+If you want more items to appear in one row, then pass them in a `shiny::tagList`
+
+Example:
 
 ```r
-htmlTemplate("index.html",
-             googleLogin = column(width = 12, googleAuthR::googleAuthUI("auth")),
-             authDropdown = column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
-             sessionTable = graph_box(dataTableOutput("delta")),
-             topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
-                                     tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
-             graph_box = graph_box(),
-             another_box = dashboard_box(uiOutput("progress_bar2")),
-             another_box2 = dashboard_box(p("Interesting stuff goes here")),
-             another_box3 = dashboard_box(p("More interesting stuff")),
-             profile = uiOutput("profile"),
-             profile_nav = uiOutput("profile_nav"),
-             progress_bar = uiOutput("progress_bar")
+boxRow <- tagList(
+  dashboard_box(uiOutput("progress_bar2")),
+  dashboard_box(p("Interesting stuff goes here")),
+  dashboard_box(p("More interesting stuff"))
 )
+
+## each parameter holds UI elements that are rendered in order down the content page
+gentelellaPage(
+  authDropdown = column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
+  topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+                          tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
+  graph_box1 = graph_box(dygraphOutput("trend_plot"),
+                         datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
+  another_box =  boxRow
+)
+
 ```
 
-Edit into `index.html` where the dynamic content should appear within two curly brackets `{{ googleLogin }}`
+This will then populate the `index.html` file via `shiny::htmlTemplate`, but you shouldn't need to touch the HTML yourself. 
+
+`gentelellaPage` also includes some reserved parameters to set options such as sidebar menu items, title tag and footer images.
+
+```r
+## create menu items for sidebar using sidebarElement
+menuItems <- list(
+  sideBarElement(" Home ",
+                 icon = icon("home"),
+                 list(a(href="index.html", "Dashboard"),
+                      a(href="index2.html", "Dashboard2"),
+                      a(href="index3.html", "Dashboard3"))                        
+  ),
+  sideBarElement(" Contact ",
+                 icon = icon("envelope"),
+                 list(a(href="http://twitter.com/HoloMarkeD", 
+                        HTML(paste(icon("twitter"), "@HoloMarkeD"))),
+                      a(href="http://code.markedmondson.me", 
+                        HTML(paste(icon("rss"), " Blog"))),
+                      a(href="https://github.com/MarkEdmondson1234/gentelellaShiny", 
+                        HTML(paste(icon("github"), " Github"))))                        
+  ),
+  sideBarElement(column(width = 12, googleAuthR::googleAuthUI("auth"),
+                        icon = NULL)
+  ))
+
+gentelellaPage(
+  topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+                          tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
+  
+  ## start reserved parameters:
+  menuItems = menuItems,
+  title_tag = "Shiny HTML Template",
+  site_title = a(class="site_title", icon("eye"), span("Shiny HTML")),
+  footer = "Made in Denmark"
+)
+```
 
 ### Login page
 

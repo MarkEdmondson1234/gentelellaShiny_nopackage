@@ -3,7 +3,7 @@
   <head>
 
     {{ headContent() }}
-    {{ headerBoilerPlate() }}
+    {{ headerBoilerPlate }}
     {{ bootstrapLib() }}
     
   </head>
@@ -12,56 +12,21 @@
     <div class="container body">
       <div class="main_container">
         
-        {{ sideBarBoilerPlate() }}
-        {{ navbarBoilerPlate() }}
+        {{ sideBarBoilerPlate }}
+        {{ navbarBoilerPlate }}
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <div class="row">
 
-          {{ authDropdown }}
-          </div>
-          <!-- top tiles -->
-          {{ topTiles }}
-          <!-- /top tiles -->
-
-          <br />
-          <div class="row">
-          {{ graph_box1 }}
-          </div>
-          <br />
+          {{ main_body }}
           
-          
-          <div class="row">
-
-          </div>
-          <br />
-          
-          <div class="row">
-            
-            {{ another_box }}
-            {{ another_box2 }}
-            {{ another_box3 }}
-            
-          </div>
-          
-          <div class="row">
-      
-          </div>
-
-
-          <div class="row">
-                
-          </div>
         </div>
         <!-- /page content -->
 
-        {{ footerBoilerPlate() }}
+        {{ footerBoilerPlate }}
         
       </div>
     </div>
-
-
 
   </body>
 </html>

@@ -1,3 +1,34 @@
+#' profileElements UI
+#'
+#' Shiny Module for use with \link{profileElements}
+#' 
+#' @param id Shiny id
+#'
+#' @return Shiny UI
+profileElementsUI <- function(id){
+
+  ns <- shiny::NS(id)
+
+}
+
+#' profileElements
+#'
+#' Shiny Module for use with \link{profileElementsUI}
+#'
+#' Call via \code{shiny::callModule(profileElements, "your_id")}
+#'
+#' @param input shiny input
+#' @param output shiny output
+#' @param session shiny session
+#'
+#' @return Something
+profileElements <- function(input, output, session){
+
+    ns <- session$ns
+
+}
+
+
 #' Render the profile box
 #' 
 #' @param profile_name The user name
@@ -41,18 +72,7 @@ profile_box <- function(profile_name,
 #' @return profile top nav
 profile_nav <- function(profile_name,
                         profile_url,
-                        menu_items = list(tags$li(
-                                           tags$a(href="javascript:;", " Profile")
-                                           ),
-                                          tags$li(
-                                            tags$a(href="javascript:;", " Settings")
-                                          ),
-                                          tags$li(
-                                            tags$a(href="javascript:;", "Help")
-                                          ),
-                                          tags$li(
-                                            tags$a(href="#", tags$i(class="fa fa-sign-out pull-right"), "Log out"
-                                            )))
+                        menu_items = NULL
                         ){
   
   withTags(
