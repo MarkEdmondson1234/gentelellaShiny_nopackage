@@ -45,12 +45,12 @@ menuItems <- list(
   ))
 
 gentelellaPage(
-  authDropdown = column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
-  topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+  column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
+  tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
                           tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
-  graph_box1 = graph_box(dygraphOutput("trend_plot"),
+  graph_box(dygraphOutput("trend_plot"),
                          datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
-  another_box =  boxRow,
+  boxRow,
   menuItems = menuItems,
   title_tag = "Shiny HTML Template",
   site_title = a(class="site_title", icon("eye"), span("Shiny HTML"))

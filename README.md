@@ -79,14 +79,14 @@ boxRow <- tagList(
   dashboard_box(p("More interesting stuff"))
 )
 
-## each parameter holds UI elements that are rendered in order down the content page
+## each parameter holds UI elements that are rendered per row in order down the content page
 gentelellaPage(
-  authDropdown = column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
-  topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
-                          tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
-  graph_box1 = graph_box(dygraphOutput("trend_plot"),
+  column(width = 12, googleAnalyticsR::authDropdownUI("auth_dropdown")),
+  tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+               tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
+  graph_box(dygraphOutput("trend_plot"),
                          datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
-  another_box =  boxRow
+  boxRow
 )
 
 ```
