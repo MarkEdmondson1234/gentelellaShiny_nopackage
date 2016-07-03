@@ -85,7 +85,7 @@ gentelellaPage(
   tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
                tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
   graph_box(dygraphOutput("trend_plot"),
-                         datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
+            datepicker = dateRangeInput("datepicker_id", NULL, start = Sys.Date() - 300)),
   boxRow
 )
 
@@ -93,7 +93,7 @@ gentelellaPage(
 
 This will then populate the `index.html` file via `shiny::htmlTemplate`, so you shouldn't need to touch the HTML yourself. 
 
-`gentelellaPage` also includes some named parameters to set options such as sidebar menu items, title tag and footer images.
+`gentelellaPage()` also includes some named parameters to set options such as sidebar menu items, title tag and footer images.
 
 ```r
 ## create menu items for sidebar using sidebarElement
@@ -129,7 +129,7 @@ gentelellaPage(
 )
 ```
 
-There is no other support for different layouts other than the defaults in `gentelellaPage()`, in that case use `shiny::htmlTemplate` directly and edit `index.html` to include your R code blocks in `{{ brackets }}`
+There is no support for different layouts other than the defaults in `gentelellaPage()`, in that case use `shiny::htmlTemplate` directly and edit `index.html` to include your R code blocks in `{{ brackets }}`
 
 ### Login page
 
