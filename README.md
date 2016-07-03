@@ -22,42 +22,45 @@ The demo uses `googleAnalyticsR` to download data, so won't look like much if yo
 
 ## Elements
 
-* googleanalytics dropdown
 
-From `googleAnalyticsR`, a UI to selet GA view:
-
-![](ga_dropdown.png)
-
-* Top tiles
+### Top tiles
 
 A tile to show headline metrics
 
 ![](top_tiles.png)
 
-* Plot Box
+### Plot Box
 
 A box with datepicker for plots
 
 ![](plot_box.png)
 
-* Collapsible box
+### Collapsible box
 
 A box to display other dashboard content
 
 ![](dash_box.png)
 
 
-* Progress bars
+### Progress bars
 
 For showing things like performance against target
 
 ![](progress_bars.png)
 
-* Other Shiny elements
+### Other Shiny elements
 
-Plus any other normal Shiny UI such as `htmlwidgets`
+Any other Shiny UI elements can also be used, including `htmlwidgets`.  A couple of examples are shown below:
 
-Example below with `flexdashboards` gauges:
+#### Google Analytics dropdown
+
+From `googleAnalyticsR`, a UI to selet GA view:
+
+![](ga_dropdown.png)
+
+#### Gauge
+
+From `flexdashboards`:
 
 []!(guage_demo.png)
 
