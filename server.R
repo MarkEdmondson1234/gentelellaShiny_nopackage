@@ -5,11 +5,15 @@ library(googleID)
 library(dygraphs)
 library(zoo)
 library(ggplot2)
+library(flexdashboard)
+options(shiny.port = 1221)
 options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/userinfo.email",
                                         "https://www.googleapis.com/auth/userinfo.profile",
                                         "https://www.googleapis.com/auth/analytics.readonly"))
 options(googleAuthR.securitycode = "gentelellafkjfs24j234123")
-# options(shiny.port = 1221)
+options(googleAuthR.webapp.client_id = "201908948134-cjjs89cffh3k429vi7943ftpk3jg36ed.apps.googleusercontent.com")
+options(googleAuthR.webapp.client_secret = "mE7rHl0-iNtzyI1MQia-mg1o")
+
 
 source("top_tiles.R")
 source("box_layouts.R")
@@ -137,19 +141,30 @@ function(input, output, session){
     req(trend_data())
     trend_data <- trend_data()
     
-    ## halts app??
     zz <- zoo(trend_data$sessions, order.by = trend_data$date)
     dygraph(zz, ylab = "sessions", main = "Sessions Trend")
    
   })
   
+  ## Gauges
+  
+  output$gauge1 <- flexdashboard::renderGauge({
+    
+    req(session_data())
+    ssd <- session_data()
+
+    flexdashboard::gauge(ssd$sessions.d1[1], min = 0, max = ssd$sessions.d1[1] * 1.3,
+                         sectors = gaugeSectors(c(ssd$sessions.d2[1], ssd$sessions.d1[1] * 1.3),
+                                                c(10, ssd$sessions.d2[1]),
+                                                c(0,10)))
+    
+  })
+  
   ## progress bars
   
   output$progress_bar <- renderUI({
-    validate(
-      need(session_data(), "Fetching data...")
-    )
     
+    req(session_data())
     sd <- session_data()
     
     values <- sd$sessions.d1

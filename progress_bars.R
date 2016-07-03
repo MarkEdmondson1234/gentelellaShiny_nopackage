@@ -29,7 +29,7 @@ progress_stack <- function(values,
         div(
           p(paste(name, display_totals[[x]])),
           div(class = prog_class, style="width: 76%;",
-              div(class=bar_class, role="progressbar", `data-transitiongoal`=val)
+              div(class=bar_class, role="progressbar", style=paste0("width: ",val,"%"))
               )
           )
         )
@@ -46,10 +46,8 @@ progress_stack <- function(values,
           ),
           div(class = "w_center w_55",
               div(class="progress",
-                  div(class=bar_class, role = "progressbar", `data-transitiongoal`=val, style="width: 25%;",
-                      span(class = "sr-only", paste0(val, "% Complete"))
+                  div(class=bar_class, role = "progressbar", style=paste0("width: ",val,"%"))
                   )
-              )
           ),
           div(class = "w_right w_20",
               span(display_totals[[x]])

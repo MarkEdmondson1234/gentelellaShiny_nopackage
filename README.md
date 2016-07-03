@@ -47,6 +47,20 @@ A box to display other dashboard content
 ![](dash_box.png)
 
 
+* Progress bars
+
+For showing things like performance against target
+
+![](progress_bars.png)
+
+* Other Shiny elements
+
+Plus any other normal Shiny UI such as `htmlwidgets`
+
+Example below with `flexdashboards` gauges:
+
+[]!(guage_demo.png)
+
 ## To use
 
 A special function `gentelellaPage()` has been created that you pass normal ui.R elements to, that will then render each parameter in order to each row of content on the page.
@@ -57,8 +71,8 @@ Example:
 
 ```r
 boxRow <- tagList(
-  dashboard_box(uiOutput("progress_bar2")),
-  dashboard_box(p("Interesting stuff goes here")),
+  dashboard_box(uiOutput("progress_bar2"), box_title = "Targets"),
+  dashboard_box(gaugeOutput("gauge1"), box_title = "Flexdashboard Gauge", menuItems = NULL),
   dashboard_box(p("More interesting stuff"))
 )
 
