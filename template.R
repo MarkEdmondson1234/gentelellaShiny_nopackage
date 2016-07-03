@@ -24,16 +24,6 @@ headerBoilerPlate <- function(title_tag = "Shiny HTML"){
   
 }
 
-header2 <- function(title_tag){
-  
-  tags$head(
-    headContent(),  # this is not allowed
-    headerBoilerPlate(),
-    bootstrapLib()
-  )
-  
-}
-
 footerBoilerPlate <- function(message = NULL){
   
   if(is.null(message)){
@@ -62,27 +52,28 @@ footerBoilerPlate <- function(message = NULL){
   
 }
 
-sideBarBoilerPlate <- function(site_title = a(class="site_title", icon("paw"), span("Shiny HTML")),
-                               menuItems = list(
-                                 sideBarElement(" Home ",
-                                                icon = icon("home"),
-                                                list(a(href="index.html", "Dashboard"),
-                                                     a(href="index2.html", "Dashboard2"),
-                                                     a(href="index3.html", "Dashboard3"))                        
-                                                ),
-                                 sideBarElement(" Contact ",
-                                                icon = icon("envelope"),
-                                                list(a(href="http://twitter.com/HoloMarkeD", 
-                                                       HTML(paste(icon("twitter"), "@HoloMarkeD"))),
-                                                     a(href="http://code.markedmondson.me", 
-                                                       HTML(paste(icon("rss"), " Blog"))),
-                                                     a(href="https://github.com/MarkEdmondson1234/gentelellaShiny", 
-                                                       HTML(paste(icon("github"), " Github"))))                        
-                                 ),
-                                 sideBarElement(column(width = 12, googleAuthR::googleAuthUI("auth"),
-                                                       icon = NULL)
-                               ))){
-  
+sideBarBoilerPlate <- 
+  function(site_title = a(class="site_title", icon("paw"), span("Shiny HTML")),
+           menuItems = list(
+             sideBarElement(" Home ",
+                            icon = icon("home"),
+                            list(a(href="index.html", "Dashboard"),
+                                 a(href="index2.html", "Dashboard2"),
+                                 a(href="index3.html", "Dashboard3"))                        
+             ),
+             sideBarElement(" Contact ",
+                            icon = icon("envelope"),
+                            list(a(href="http://twitter.com/HoloMarkeD", 
+                                   HTML(paste(icon("twitter"), "@HoloMarkeD"))),
+                                 a(href="http://code.markedmondson.me", 
+                                   HTML(paste(icon("rss"), " Blog"))),
+                                 a(href="https://github.com/MarkEdmondson1234/gentelellaShiny", 
+                                   HTML(paste(icon("github"), " Github"))))                        
+             ),
+             sideBarElement(column(width = 12, googleAuthR::googleAuthUI("auth"),
+                                   icon = NULL)
+             ))){
+    
   withTags({
     div(class="col-md-3 left_col",
         div(class="left_col scroll-view",
@@ -94,7 +85,7 @@ sideBarBoilerPlate <- function(site_title = a(class="site_title", icon("paw"), s
           br(),
           div(id="sidebar-menu", class="main_menu_side hidden-print main_menu",
             div(class = "menu_section",
-                h3(""),
+                h3(format(Sys.Date(), format = "%a - %d %B, %Y")),
                 ul(class = "nav side-menu",
                    tagList(lapply(menuItems, li))
                    )

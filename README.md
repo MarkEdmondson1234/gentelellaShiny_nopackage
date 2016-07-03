@@ -93,7 +93,7 @@ gentelellaPage(
 
 This will then populate the `index.html` file via `shiny::htmlTemplate`, so you shouldn't need to touch the HTML yourself. 
 
-`gentelellaPage` also includes some reserved parameters to set options such as sidebar menu items, title tag and footer images.
+`gentelellaPage` also includes some named parameters to set options such as sidebar menu items, title tag and footer images.
 
 ```r
 ## create menu items for sidebar using sidebarElement
@@ -118,10 +118,10 @@ menuItems <- list(
   ))
 
 gentelellaPage(
-  topTiles = tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
-                          tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
+  tileCountRow(tileCountUI("e1"), tileCountUI("e2"), tileCountUI("e3"),
+               tileCountUI("e4"), tileCountUI("e5"), tileCountUI("e6")),
   
-  ## start reserved parameters:
+  ## start named parameters:
   menuItems = menuItems,
   title_tag = "Shiny HTML Template",
   site_title = a(class="site_title", icon("eye"), span("Shiny HTML")),
