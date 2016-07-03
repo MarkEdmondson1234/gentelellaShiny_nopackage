@@ -62,7 +62,7 @@ From `googleAnalyticsR`, a UI to selet GA view:
 
 From `flexdashboards`:
 
-[]!(guage_demo.png)
+![](guage_demo.png)
 
 ## To use
 
